@@ -1,0 +1,24 @@
+{
+  "name": "Hevi OutClinic Calculator",
+  "short_name": "Hevi Calc",
+  "description": "Professional fee calculator for Hevi OutClinic - Calculate doctor and government shares",
+  "start_url": "/Heevi-Calculator/",
+  "display": "standalone",
+  "background_color": "#0b2a5b",
+  "theme_color": "#0b2a5b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
