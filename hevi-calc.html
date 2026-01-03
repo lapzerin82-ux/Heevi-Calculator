@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hevi OutClinic Calc</title>
+
+  <style>
+    :root{
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted:#6b7280;
+      --blue:#0b2a5b;
+      --red:#b91c1c;
+      --green:#16a34a;
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(to bottom, #ffffff, #eef0f3);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      color: var(--text);
+      padding: 16px;
+    }
+
+    .card{
+      width: min(460px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .header{
+      background: var(--blue);
+      padding: 18px 18px 14px;
+      text-align:center;
+      color:#fff;
+    }
+
+    .flag{
+      width: 72px;
+      height:auto;
+      border-radius: 6px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.20);
+      display:block;
+      margin: 0 auto 10px;
+    }
+
+    h1{
+      margin:0;
+      font-family: "Times New Roman", Times, serif;
+      font-weight: 800;
+      letter-spacing:.3px;
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .title-blue{ color:#ffffff; }
+    .title-red{ color:#ffb4b4; }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:end;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    .field{
+      flex: 1 1 160px;
+      min-width: 0;
+    }
+
+    label{
+      display:block;
+      font-size: .90rem;
+      color: var(--muted);
+      margin: 0 0 6px;
+      font-weight: 600;
+    }
+
+    input[type="number"]{
+      width:100%;
+      box-sizing:border-box;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-size: 1rem;
+      outline:none;
+      transition: border .15s ease, box-shadow .15s ease;
+      background:#fff;
+    }
+
+    input[type="number"]:focus{
+      border-color:#93c5fd;
+      box-shadow: 0 0 0 4px rgba(147,197,253,.35);
+    }
+
+    .reset-wrap{
+      flex: 0 0 auto;
+      display:flex;
+      align-items:flex-end;
+      padding-bottom: 1px;
+    }
+
+    #reset{
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid #fecaca;
+      background: #ef4444;
+      color:#fff;
+      font-weight: 800;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 8px 18px rgba(239,68,68,.25);
+      transition: transform .08s ease, filter .15s ease;
+      user-select:none;
+    }
+
+    #reset:active{ transform: scale(.98); }
+    #reset:hover{ filter: brightness(.95); }
+
+    .cases-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin: 6px 0 14px;
+      padding: 10px 12px;
+      background:#f9fafb;
+      border:1px dashed #e5e7eb;
+      border-radius: 12px;
+      color: var(--muted);
+      font-weight:600;
+    }
+
+    .cases-value{
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .results{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
+    }
+
+    .result-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .result-label{
+      font-weight:700;
+      color: #374151;
+    }
+
+    .pill{
+      min-width: 160px;
+      text-align:right;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      letter-spacing:.2px;
+      border: 1px solid rgba(0,0,0,.05);
+    }
+
+    .pill.total{ background:#dbeafe; color:#1e3a8a; }
+    .pill.doctor{ background:#ede9fe; color:#4c1d95; }
+    .pill.gov{ background:#ffedd5; color:#9a3412; }
+
+    .footer{
+      text-align:center;
+      color: var(--muted);
+      font-size: .85rem;
+      padding: 10px 12px 14px;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">
+      <img
+        class="flag"
+        alt="Kurdish flag"
+        src="kurdish_flag.png"
+      />
+
+      <h1>
+        <span class="title-blue">Hevi OutClinic</span>
+        <span class="title-red"> Calc</span>
+      </h1>
+    </div>
+
+    <div class="content">
+      <div class="row">
+        <div class="field">
+          <label for="startNo">Start at</label>
+          <input id="startNo" type="number" inputmode="numeric" min="0" placeholder="e.g., 23" />
+        </div>
+
+        <div class="field">
+          <label for="endNo">End with</label>
+          <input id="endNo" type="number" inputmode="numeric" min="0" placeholder="e.g., 63" />
+        </div>
+
+        <div class="reset-wrap">
+          <button id="reset" title="Reset" aria-label="Reset">↺</button>
+        </div>
+      </div>
+
+      <div class="cases-line">
+        <div>Visited cases (End − Start)</div>
+        <div class="cases-value" id="casesCount">0</div>
+      </div>
+
+      <div class="results">
+        <div class="result-row">
+          <div class="result-label">Total billed (IQD)</div>
+          <div class="pill total" id="total">0</div>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">Doctor share (IQD)</div>
+          <div class="pill doctor" id="doctor">0</div>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">Government share (IQD)</div>
+          <div class="pill gov" id="government">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">Designed by Dr. Bashar Ibrahim</div>
+  </div>
+
+  <script>
+    const startNo = document.getElementById("startNo");
+    const endNo = document.getElementById("endNo");
+    const resetBtn = document.getElementById("reset");
+
+    const casesCountEl = document.getElementById("casesCount");
+    const totalEl = document.getElementById("total");
+    const doctorEl = document.getElementById("doctor");
+    const govEl = document.getElementById("government");
+
+    function fmt(n){
+      return Number(n).toLocaleString("en-US");
+    }
+
+    function safeInt(v){
+      if (v === "" || v === null || v === undefined) return null;
+      const x = parseInt(v, 10);
+      return Number.isFinite(x) ? x : null;
+    }
+
+    function update(){
+      const s = safeInt(startNo.value);
+      const e = safeInt(endNo.value);
+
+      if (s === null || e === null){
+        casesCountEl.textContent = "0";
+        totalEl.textContent = "0";
+        doctorEl.textContent = "0";
+        govEl.textContent = "0";
+        return;
+      }
+
+      let cases = e - s;
+      if (cases < 0) cases = 0;
+
+      const total = cases * 4000;
+      const doctor = cases * 3350;
+      const government = total - doctor;
+
+      casesCountEl.textContent = fmt(cases);
+      totalEl.textContent = fmt(total);
+      doctorEl.textContent = fmt(doctor);
+      govEl.textContent = fmt(government);
+    }
+
+    startNo.addEventListener("input", update);
+    endNo.addEventListener("input", update);
+
+    resetBtn.addEventListener("click", () => {
+      startNo.value = "";
+      endNo.value = "";
+      update();
+    });
+
+    update();
+  </script>
+</body>
+</html>
